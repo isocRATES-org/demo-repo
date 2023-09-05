@@ -13,8 +13,8 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool name: 'my-sonar-server', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    withSonarQubeEnv('my-sonar-server') {
+                    def scannerHome = tool name: 'YourSonarScannerName', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    withSonarQubeEnv('YourSonarQubeServerName') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
@@ -23,13 +23,18 @@ pipeline {
 
         // Add more stages as needed for your build and deployment process
     }
-    
+
     post {
         success {
             // Actions to take when the pipeline succeeds
+            echo 'Pipeline succeeded!'
+            // You can add more actions here
         }
         failure {
             // Actions to take when the pipeline fails
+            echo 'Pipeline failed!'
+            // You can add more actions here
         }
     }
 }
+
