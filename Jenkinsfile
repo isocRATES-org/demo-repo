@@ -1,39 +1,29 @@
-pipeline {
+pipeline{
     agent any
-
-    stages {
-        stage('Checkout') {
-            steps {
-                // Checkout your source code here if not already done
-                // For example:
-                checkout scm
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool name: 'sonarqube-token', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    withSonarQubeEnv('http://18.232.77.236:9000') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
-            }
-        }
-
-        // Add more stages as needed for your build and deployment process
+    environment {
+        PATH = "$PATH:/opt/apache-maven-3.8.2/bin"
     }
-
-    post {
-        success {
-            // Actions to take when the pipeline succeeds
-            echo 'Pipeline succeeded!'
-            // You can add more actions here
+    stages{
+       stage('GetCode'){
+            steps{
+                git 'https://github.com/ravdy/javaloginapp.git'
+            }
+         }        
+       stage('Build'){
+            steps{
+                sh 'mvn clean package'
+            }
+         }
+        stage('SonarQube analysis') {
+//    def scannerHome = tool 'SonarScanner 4.0';
+        steps{
+        withSonarQubeEnv('my-sonar-server') { 
+        // If you have configured more than one global server connection, you can specify its name
+//      sh "${scannerHome}/bin/sonar-scanner"
+        sh "mvn sonar:sonar"
+    }
         }
-        failure {
-            // Actions to take when the pipeline fails
-            echo 'Pipeline failed!'
-            // You can add more actions here
         }
+       
     }
 }
