@@ -6,7 +6,7 @@ pipeline {
             steps {
                 // Checkout your source code here if not already done
                 // For example:
-                // checkout scm
+                checkout scm
             }
         }
 
