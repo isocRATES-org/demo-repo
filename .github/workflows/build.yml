@@ -1,21 +1,5 @@
-name: Sonar Analysis
-on:
-  push:
-    branches:
-      - main # or the name of your main branch
-
-jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: docker://sonarsource/sonar-scanner-cli:latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
-          SONAR_PASSWORD: ${{ secrets.SONAR_PASSWORD }}
+sonar-scanner \
+  -Dsonar.projectKey=demo-project \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://54.160.139.145:9000/ \
+  -Dsonar.login=sqp_960d300d140534ff9dae46d3a9ca498a30f2c6ea
