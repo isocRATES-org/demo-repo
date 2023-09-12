@@ -2,4 +2,4 @@ sonar-scanner \
   -Dsonar.projectKey=demo-project \
   -Dsonar.sources=. \
   -Dsonar.host.url=http://54.160.139.145:9000/ \
-  -Dsonar.login=sqp_960d300d140534ff9dae46d3a9ca498a30f2c6ea
+  -Dsonar.login=sqp_5030381d5a18b6042a9b13c41dee91feb4bca941
